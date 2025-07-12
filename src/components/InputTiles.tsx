@@ -1,14 +1,15 @@
+import { Box } from "@mui/material";
 import { JSX } from "react";
 
-export default function InputTiles() {
-  const array = [1, 2, 3, 4, 5];
+type Props = {
+  letters: string[];
+};
 
+export default function InputTiles({ letters }: Props) {
   return (
-    <div
-      style={{ display: "flex", justifyContent: "center", marginTop: "40rem" }}
-    >
-      {array.map(
-        (_, index): JSX.Element => (
+    <Box sx={{ display: "flex", justifyContent: "center", marginTop: "40rem" }}>
+      {letters.map(
+        (_, index: number): JSX.Element => (
           <input
             key={index}
             style={{
@@ -22,11 +23,13 @@ export default function InputTiles() {
               color: "#fff",
               fontSize: "4rem",
               textAlign: "center",
+              textTransform: "uppercase",
             }}
+            value={letters[index]}
             readOnly
           />
         )
       )}
-    </div>
+    </Box>
   );
 }
