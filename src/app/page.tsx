@@ -1,12 +1,14 @@
 "use client";
+import GuessesList from "@/components/GuessesList";
 import InputTiles from "@/components/InputTiles";
 import { Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 
 export default function Home() {
-  const [currentLetters, setCurrentLetters] = useState<string[]>(
-    Array(5).fill("")
-  );
+  const emptyTiles: string[] = Array(5).fill("");
+
+  const [currentLetters, setCurrentLetters] = useState<string[]>(emptyTiles);
+  const [guesses, setGuesses] = useState<string[]>([]);
 
   // Game logic
   const handleUserInput = (userInput: string) => {
@@ -20,6 +22,10 @@ export default function Home() {
       if (emptyIndex === -1) newLetters[newLetters.length - 1] = "";
       else newLetters[emptyIndex - 1] = "";
       setCurrentLetters(newLetters);
+    } else if (userInput === "Enter" && emptyIndex === -1) {
+      const guess: string = newLetters.join("");
+      setGuesses([...guesses, guess]);
+      setCurrentLetters(emptyTiles);
     }
   };
 
@@ -40,6 +46,7 @@ export default function Home() {
       <Typography
         variant="h1"
         sx={{
+          marginTop: "1rem",
           fontSize: "4rem",
           fontWeight: "400",
           textAlign: "center",
@@ -48,6 +55,7 @@ export default function Home() {
       >
         Wordle-ish
       </Typography>
+      <GuessesList guesses={guesses} />
       <InputTiles letters={currentLetters} />
     </>
   );
