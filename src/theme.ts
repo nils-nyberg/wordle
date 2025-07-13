@@ -16,8 +16,26 @@ const theme = createTheme({
       primary: "#ffffff",
     },
   },
+
   typography: {
     fontFamily: roboto.style.fontFamily,
+  },
+
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          "&.MuiButton-Keyboard": {
+            minWidth: "0",
+            width: "3rem",
+            height: "3rem",
+            color: "#fff",
+            borderColor: "#8b8b8b",
+            fontSize: "1.35rem",
+          },
+        },
+      },
+    },
   },
 });
 

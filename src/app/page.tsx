@@ -1,6 +1,7 @@
 "use client";
 import GuessesList from "@/components/GuessesList";
 import InputTiles from "@/components/InputTiles";
+import Keyboard from "@/components/Keyboard";
 import { Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 
@@ -56,6 +57,7 @@ export default function Home() {
       </Typography>
       <GuessesList guesses={guesses} />
       <InputTiles letters={currentLetters} />
+      <Keyboard handleUserInput={handleUserInput} />
     </>
   );
 }

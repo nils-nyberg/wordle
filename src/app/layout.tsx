@@ -19,7 +19,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Container>{children}</Container>
+            {children}
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

@@ -10,7 +10,7 @@ export default function GuessesList({ guesses }: Props) {
     <List
       sx={{
         marginTop: "3rem",
-        height: "30rem",
+        height: "10rem",
         overflow: "scroll",
       }}
     >
@@ -19,7 +19,9 @@ export default function GuessesList({ guesses }: Props) {
           <ListItem key={rowIndex}>
             <Box
               sx={{
+                display: "flex",
                 margin: "0 auto",
+                columnGap: "0.75rem",
               }}
             >
               {guesses[rowIndex].map((_, letterIndex) => (
@@ -27,15 +29,14 @@ export default function GuessesList({ guesses }: Props) {
                   key={letterIndex}
                   sx={{
                     "& .MuiInput-input": {
-                      height: "4rem",
-                      width: "4rem",
-                      marginRight: "0.75rem",
+                      height: "2rem",
+                      width: "2rem",
                       backgroundColor: "transparent",
                       caretColor: "transparent",
                       border: "0.25rem solid #8b8b8b",
-                      borderRadius: "1rem",
+                      borderRadius: "0.5rem",
                       color: "#fff",
-                      fontSize: "3rem",
+                      fontSize: "1.5rem",
                       textAlign: "center",
                       textTransform: "uppercase",
                     },
