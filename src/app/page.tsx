@@ -15,7 +15,7 @@ export default function Home() {
     const newLetters: string[] = [...currentLetters];
     const emptyIndex: number = newLetters.indexOf("");
 
-    if (userInput.match(/^[A-Za-z]$/)) {
+    if (userInput.match(/^[A-Öa-ö]$/)) {
       newLetters[emptyIndex] = userInput.toLowerCase();
       setCurrentLetters(newLetters);
     } else if (userInput === "Backspace") {
