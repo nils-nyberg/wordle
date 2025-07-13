@@ -8,7 +8,7 @@ export default function Home() {
   const emptyTiles: string[] = Array(5).fill("");
 
   const [currentLetters, setCurrentLetters] = useState<string[]>(emptyTiles);
-  const [guesses, setGuesses] = useState<string[]>([]);
+  const [guesses, setGuesses] = useState<string[][]>([]);
 
   // Game logic
   const handleUserInput = (userInput: string) => {
@@ -23,8 +23,7 @@ export default function Home() {
       else newLetters[emptyIndex - 1] = "";
       setCurrentLetters(newLetters);
     } else if (userInput === "Enter" && emptyIndex === -1) {
-      const guess: string = newLetters.join("");
-      setGuesses([...guesses, guess]);
+      setGuesses([...guesses, newLetters]);
       setCurrentLetters(emptyTiles);
     }
   };
