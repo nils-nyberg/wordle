@@ -11,7 +11,7 @@ export default function InputTiles({ letters }: Props) {
       sx={{
         display: "flex",
         justifyContent: "center",
-        marginTop: "3rem",
+        marginTop: "1rem",
         columnGap: "0.75rem",
       }}
     >

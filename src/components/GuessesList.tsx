@@ -1,5 +1,5 @@
-import { Box, List, ListItem, Input } from "@mui/material";
-import { JSX } from "react";
+import { Box, List, ListItem, Input, Slide } from "@mui/material";
+import { JSX, useState } from "react";
 
 type Props = {
   guesses: string[][];
@@ -9,8 +9,7 @@ export default function GuessesList({ guesses }: Props) {
   return (
     <List
       sx={{
-        marginTop: "3rem",
-        height: "10rem",
+        height: "8rem",
         overflow: "scroll",
       }}
     >
@@ -24,29 +23,38 @@ export default function GuessesList({ guesses }: Props) {
                 columnGap: "0.75rem",
               }}
             >
-              {guesses[rowIndex].map((_, letterIndex) => (
-                <Input
-                  key={letterIndex}
-                  sx={{
-                    "& .MuiInput-input": {
-                      height: "2rem",
-                      width: "2rem",
-                      backgroundColor: "transparent",
-                      caretColor: "transparent",
-                      border: "0.25rem solid #8b8b8b",
-                      borderRadius: "0.5rem",
-                      color: "#fff",
-                      fontSize: "1.5rem",
-                      textAlign: "center",
-                      textTransform: "uppercase",
-                    },
-                  }}
-                  value={guesses[rowIndex][letterIndex]}
-                  disableUnderline
-                  type="text"
-                  readOnly
-                />
-              ))}
+              {guesses[rowIndex].map(
+                (_, letterIndex): JSX.Element => (
+                  <Slide
+                    key={letterIndex}
+                    direction="up"
+                    in={true}
+                    mountOnEnter
+                    unmountOnExit
+                  >
+                    <Input
+                      sx={{
+                        "& .MuiInput-input": {
+                          height: "2rem",
+                          width: "2rem",
+                          backgroundColor: "transparent",
+                          caretColor: "transparent",
+                          border: "0.25rem solid #8b8b8b",
+                          borderRadius: "0.5rem",
+                          color: "#fff",
+                          fontSize: "1.5rem",
+                          textAlign: "center",
+                          textTransform: "uppercase",
+                        },
+                      }}
+                      value={guesses[rowIndex][letterIndex]}
+                      disableUnderline
+                      type="text"
+                      readOnly
+                    />
+                  </Slide>
+                )
+              )}
             </Box>
           </ListItem>
         )

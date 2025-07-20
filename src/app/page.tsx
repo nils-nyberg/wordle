@@ -47,7 +47,7 @@ export default function Home() {
         variant="h1"
         sx={{
           marginTop: "1rem",
-          fontSize: "4rem",
+          fontSize: "2rem",
           fontWeight: "400",
           textAlign: "center",
           textDecoration: "underline",
