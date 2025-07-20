@@ -1,16 +1,37 @@
+import theme from "@/theme";
 import { Box, List, ListItem, Input, Slide } from "@mui/material";
-import { JSX, useState } from "react";
+import { JSX, useEffect, useRef, useState } from "react";
 
 type Props = {
   guesses: string[][];
 };
 
+type Direction = "up" | "down" | "left" | "right";
+
 export default function GuessesList({ guesses }: Props) {
+  const [direction, setDirection] = useState<Direction>("left");
+
+  const handleChange = () => {
+    if (direction === "left") {
+      setDirection("right");
+    } else setDirection("left");
+  };
+
+  const bottomOfGuessList = useRef<HTMLDivElement>(null);
+
+  // Automatic scrolling for previous guesses
+  useEffect((): void => {
+    if (bottomOfGuessList.current) {
+      bottomOfGuessList.current.scrollIntoView();
+    }
+  }, [guesses]);
+
   return (
     <List
       sx={{
         height: "8rem",
-        overflow: "scroll",
+        overflowY: "scroll",
+        overflowX: "hidden",
       }}
     >
       {guesses.map(
@@ -24,10 +45,11 @@ export default function GuessesList({ guesses }: Props) {
               }}
             >
               {guesses[rowIndex].map(
-                (_, letterIndex): JSX.Element => (
+                (_, letterIndex: number): JSX.Element => (
                   <Slide
                     key={letterIndex}
-                    direction="up"
+                    onAnimationEnd={handleChange}
+                    direction={direction}
                     in={true}
                     mountOnEnter
                     unmountOnExit
@@ -59,6 +81,7 @@ export default function GuessesList({ guesses }: Props) {
           </ListItem>
         )
       )}
+      <div ref={bottomOfGuessList}></div>
     </List>
   );
 }
