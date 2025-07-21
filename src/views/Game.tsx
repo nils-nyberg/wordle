@@ -1,7 +1,6 @@
 import GuessesList from "@/components/GuessesList";
 import InputTiles from "@/components/InputTiles";
 import Keyboard from "@/components/Keyboard";
-import { headerStyle } from "@/style";
 import { Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 
@@ -43,9 +42,7 @@ export default function Game() {
 
   return (
     <>
-      <Typography variant="h1" sx={headerStyle}>
-        Wordle-ish
-      </Typography>
+      <Typography variant="h1">Wordle-ish</Typography>
       <GuessesList guesses={guesses} />
       <InputTiles letters={currentLetters} />
       <Keyboard handleUserInput={handleUserInput} />

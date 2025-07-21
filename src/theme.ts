@@ -22,6 +22,24 @@ const theme = createTheme({
   },
 
   components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          "&.MuiTypography-h1": {
+            marginTop: "1rem",
+            fontSize: "2rem",
+            fontWeight: "400",
+            textAlign: "center",
+            textDecoration: "underline",
+          },
+          "&.MuiTypography-body1": {
+            marginLeft: "2rem",
+            marginTop: "2rem",
+          },
+        },
+      },
+    },
+
     MuiButton: {
       styleOverrides: {
         root: {
@@ -33,6 +51,16 @@ const theme = createTheme({
             borderColor: "#8b8b8b",
             fontSize: "1.35rem",
           },
+        },
+      },
+    },
+
+    MuiSlider: {
+      styleOverrides: {
+        root: {
+          width: "15rem",
+          margin: "0 auto",
+          display: "block",
         },
       },
     },
