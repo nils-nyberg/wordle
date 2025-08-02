@@ -1,6 +1,6 @@
-import GuessesList from "@/components/GuessesList";
-import InputTiles from "@/components/InputTiles";
-import Keyboard from "@/components/Keyboard";
+import GuessesList from "@/components/game/GuessesList";
+import InputTiles from "@/components/game/InputTiles";
+import Keyboard from "@/components/game/Keyboard";
 import { Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 
