@@ -32,9 +32,9 @@ const theme = createTheme({
             textAlign: "center",
             textDecoration: "underline",
           },
-          "&.MuiTypography-body1": {
-            marginLeft: "2rem",
-            marginTop: "2rem",
+          "&.MuiTypography-Selection": {
+            marginTop: "4rem",
+            textAlign: "center",
           },
         },
       },

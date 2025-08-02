@@ -1,4 +1,6 @@
-import { Slider, Typography } from "@mui/material";
+import LettersLength from "@/components/settings/LettersLength";
+import UniqueLetters from "@/components/settings/UniqueLetters";
+import { Typography, Box, Button } from "@mui/material";
 
 export default function Settings() {
   const minLetters: number = 1;
@@ -7,14 +9,22 @@ export default function Settings() {
   return (
     <>
       <Typography variant="h1">Welcome</Typography>
-      <Typography variant="body1">Choose how many letters:</Typography>
-      <Slider
-        valueLabelDisplay="auto"
-        shiftStep={5}
-        step={1}
-        min={minLetters}
-        max={maxLetters}
-      />
+      <Box>
+        <LettersLength minLetters={minLetters} maxLetters={maxLetters} />
+        <UniqueLetters />
+
+        <Button
+          sx={{
+            display: "block",
+            margin: "5rem auto 0 auto",
+            width: "15rem",
+            height: "4rem",
+          }}
+          variant="contained"
+        >
+          Play the game
+        </Button>
+      </Box>
     </>
   );
 }
