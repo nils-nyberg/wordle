@@ -1,30 +1,86 @@
 import LettersLength from "@/components/settings/LettersLength";
 import UniqueLetters from "@/components/settings/UniqueLetters";
 import { Typography, Box, Button } from "@mui/material";
+import { useEffect, useState } from "react";
 
 export default function Settings() {
-  const minLetters: number = 1;
-  const maxLetters: number = 10;
+  const [minLetters, setMinLetters] = useState<number>(0);
+  const [maxLetters, setMaxLetters] = useState<number>(0);
+  const [wordLength, setWordLength] = useState<number>(0);
+  const [allowRepetition, setAllowRepetition] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/api/words");
+        const payload = await response.json();
+
+        setMinLetters(payload.minLetters);
+        setMaxLetters(payload.maxLetters);
+
+        setWordLength(payload.minLetters);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const getWordLength = (value: number) => {
+    setWordLength(value);
+  };
+
+  const getRepetition = (state: boolean) => {
+    setAllowRepetition(state);
+  };
+
+  const postIt = async () => {
+    try {
+      const response = await fetch("/api/games", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          wordLength,
+          allowRepetition,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
       <Typography variant="h1">Welcome</Typography>
-      <Box>
-        <LettersLength minLetters={minLetters} maxLetters={maxLetters} />
-        <UniqueLetters />
+      {maxLetters > 0 && (
+        <Box>
+          <LettersLength
+            getWordLength={getWordLength}
+            minLetters={minLetters}
+            maxLetters={maxLetters}
+          />
+          <UniqueLetters getRepetition={getRepetition} />
 
-        <Button
-          sx={{
-            display: "block",
-            margin: "5rem auto 0 auto",
-            width: "15rem",
-            height: "4rem",
-          }}
-          variant="contained"
-        >
-          Play the game
-        </Button>
-      </Box>
+          <Button
+            sx={{
+              display: "block",
+              margin: "5rem auto 0 auto",
+              width: "15rem",
+              height: "4rem",
+            }}
+            variant="contained"
+            onClick={postIt}
+          >
+            Play the game
+          </Button>
+        </Box>
+      )}
     </>
   );
 }

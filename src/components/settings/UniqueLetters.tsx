@@ -1,7 +1,11 @@
 import { Typography, Box, Button } from "@mui/material";
 import { useState } from "react";
 
-export default function LettersLength() {
+type Props = {
+  getRepetition: (state: boolean) => void;
+};
+
+export default function LettersLength({ getRepetition }: Props) {
   const [buttonColorYes, setButtonColorYes] = useState<"success" | "primary">(
     "primary"
   );
@@ -21,7 +25,7 @@ export default function LettersLength() {
   return (
     <>
       <Typography className="MuiTypography-Selection" variant="body1">
-        Should all letters be unique?
+        Should all letters be unique? (Default: No)
       </Typography>
       <Box
         sx={{
@@ -34,14 +38,20 @@ export default function LettersLength() {
         <Button
           variant="contained"
           color={buttonColorYes}
-          onClick={() => handleClick(true)}
+          onClick={() => {
+            handleClick(true);
+            getRepetition(false);
+          }}
         >
           Yes
         </Button>
         <Button
           variant="contained"
           color={buttonColorNo}
-          onClick={() => handleClick(false)}
+          onClick={() => {
+            handleClick(false);
+            getRepetition(true);
+          }}
         >
           No
         </Button>
