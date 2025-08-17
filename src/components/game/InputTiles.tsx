@@ -2,10 +2,10 @@ import { Box, Input } from "@mui/material";
 import { JSX } from "react";
 
 type Props = {
-  letters: string[];
+  currentLetters: string[];
 };
 
-export default function InputTiles({ letters }: Props) {
+export default function InputTiles({ currentLetters }: Props) {
   return (
     <Box
       sx={{
@@ -15,7 +15,7 @@ export default function InputTiles({ letters }: Props) {
         columnGap: "0.75rem",
       }}
     >
-      {letters.map(
+      {currentLetters.map(
         (_, index: number): JSX.Element => (
           <Input
             key={index}
@@ -33,7 +33,7 @@ export default function InputTiles({ letters }: Props) {
                 textTransform: "uppercase",
               },
             }}
-            value={letters[index]}
+            value={currentLetters[index]}
             disableUnderline
             type="text"
             readOnly

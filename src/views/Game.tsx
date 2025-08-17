@@ -4,8 +4,12 @@ import Keyboard from "@/components/game/Keyboard";
 import { Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 
-export default function Game() {
-  const emptyTiles: string[] = Array(5).fill("");
+type Props = {
+  wordLength: number;
+};
+
+export default function Game({ wordLength }: Props) {
+  const emptyTiles: string[] = Array(wordLength).fill("");
 
   const [currentLetters, setCurrentLetters] = useState<string[]>(emptyTiles);
   const [guesses, setGuesses] = useState<string[][]>([]);
@@ -44,7 +48,7 @@ export default function Game() {
     <>
       <Typography variant="h1">Wordle-ish</Typography>
       <GuessesList guesses={guesses} />
-      <InputTiles letters={currentLetters} />
+      <InputTiles currentLetters={currentLetters} />
       <Keyboard handleUserInput={handleUserInput} />
     </>
   );

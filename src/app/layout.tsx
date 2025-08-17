@@ -4,6 +4,7 @@ import { roboto } from "@/theme";
 import theme from "@/theme";
 import { Metadata } from "next";
 import CssBaseline from "@mui/material/CssBaseline";
+import { Container } from "@mui/material";
 
 export const metadata: Metadata = {
   title: "MyWordle",
@@ -18,7 +19,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            {children}
+            <Container>{children}</Container>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

@@ -3,10 +3,19 @@ import UniqueLetters from "@/components/settings/UniqueLetters";
 import { Typography, Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 
-export default function Settings() {
+type Props = {
+  startGame: () => void;
+  wordLength: number;
+  getWordLength: (value: number) => void;
+};
+
+export default function Settings({
+  startGame,
+  wordLength,
+  getWordLength,
+}: Props) {
   const [minLetters, setMinLetters] = useState<number>(0);
   const [maxLetters, setMaxLetters] = useState<number>(0);
-  const [wordLength, setWordLength] = useState<number>(0);
   const [allowRepetition, setAllowRepetition] = useState<boolean>(true);
 
   useEffect(() => {
@@ -18,17 +27,13 @@ export default function Settings() {
         setMinLetters(payload.minLetters);
         setMaxLetters(payload.maxLetters);
 
-        setWordLength(payload.minLetters);
+        getWordLength(payload.minLetters);
       } catch (error) {
         console.error(error);
       }
     };
     fetchData();
   }, []);
-
-  const getWordLength = (value: number) => {
-    setWordLength(value);
-  };
 
   const getRepetition = (state: boolean) => {
     setAllowRepetition(state);
@@ -75,7 +80,10 @@ export default function Settings() {
               height: "4rem",
             }}
             variant="contained"
-            onClick={postIt}
+            onClick={() => {
+              postIt();
+              startGame();
+            }}
           >
             Play the game
           </Button>
