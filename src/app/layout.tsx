@@ -4,7 +4,6 @@ import { roboto } from "@/theme";
 import theme from "@/theme";
 import { Metadata } from "next";
 import CssBaseline from "@mui/material/CssBaseline";
-import { Container } from "@mui/material";
 
 export const metadata: Metadata = {
   title: "MyWordle",

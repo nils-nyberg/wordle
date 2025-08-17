@@ -13,7 +13,7 @@ export async function GET() {
     return NextResponse.json({ minLetters, maxLetters }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
-      { error: "Error fetching words" },
+      { error, message: "Error fetching words" },
       { status: 500 }
     );
   }

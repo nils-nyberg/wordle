@@ -1,5 +1,4 @@
 import { Typography, Slider } from "@mui/material";
-import { useState } from "react";
 
 type Props = {
   minLetters: number;
