@@ -4,12 +4,8 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     const words: string[] = await fetchWords("english");
-    const longest: string = words.reduce((prevValue, currentValue) => {
-      return prevValue.length > currentValue.length ? prevValue : currentValue;
-    });
-    const shortest: string = words.reduce((prevValue, currentValue) => {
-      return prevValue.length < currentValue.length ? prevValue : currentValue;
-    });
+    const shortest: string = getMinLetters(words);
+    const longest: string = getMaxLetters(words);
 
     const minLetters: number = shortest.length;
     const maxLetters: number = longest.length;
@@ -22,3 +18,15 @@ export async function GET() {
     );
   }
 }
+
+const getMinLetters = (words: string[]) => {
+  return words.reduce((prevValue, currentValue) => {
+    return prevValue.length < currentValue.length ? prevValue : currentValue;
+  });
+};
+
+const getMaxLetters = (words: string[]) => {
+  return words.reduce((prevValue, currentValue) => {
+    return prevValue.length > currentValue.length ? prevValue : currentValue;
+  });
+};
