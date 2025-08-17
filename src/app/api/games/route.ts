@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import * as uuid from "uuid";
+import { cookies } from "next/headers";
 import { GameData } from "@/lib/types";
 import { fetchWords, GAMES } from "@/lib/utils";
 import wordSelection from "@/lib/logic/algorithmB";
@@ -12,9 +13,10 @@ export async function POST(req: NextRequest) {
 
     const wordList: string[] = await fetchWords("english");
     const answer: string = wordSelection(wordList, wordLength, allowRepetition);
+    const id = uuid.v4();
 
     const game: GameData = {
-      id: uuid.v4(),
+      id,
       wordLength,
       allowRepetition,
       answer,
@@ -24,6 +26,16 @@ export async function POST(req: NextRequest) {
     };
 
     GAMES.push(game);
+
+    const cookie = await cookies();
+    cookie.set({
+      name: "id",
+      value: id,
+      httpOnly: true,
+      sameSite: "strict",
+      secure: true,
+    });
+
     return NextResponse.json({ wordLength, allowRepetition }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
