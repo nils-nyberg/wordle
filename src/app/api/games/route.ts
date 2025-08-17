@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import * as uuid from "uuid";
 import { GameData } from "@/lib/types";
-import { GAMES } from "@/lib/utils";
+import { fetchWords, GAMES } from "@/lib/utils";
+import wordSelection from "@/lib/logic/algorithmB";
 
 export async function POST(req: NextRequest) {
   try {
@@ -9,11 +10,14 @@ export async function POST(req: NextRequest) {
     const wordLength: number = body.wordLength;
     const allowRepetition: boolean = body.allowRepetition;
 
+    const wordList: string[] = await fetchWords("english");
+    const answer: string = wordSelection(wordList, wordLength, allowRepetition);
+
     const game: GameData = {
       id: uuid.v4(),
       wordLength,
       allowRepetition,
-      answer: "",
+      answer,
       guesses: [],
       startTime: new Date(),
       endTime: undefined,
