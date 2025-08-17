@@ -10,6 +10,9 @@
 !.yarn/releases
 !.yarn/versions
 
+# bundling
+/.swc/
+
 # testing
 /coverage
 
