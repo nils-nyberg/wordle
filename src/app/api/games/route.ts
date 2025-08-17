@@ -22,6 +22,6 @@ export async function POST(req: NextRequest) {
     GAMES.push(game);
     return NextResponse.json({ wordLength, allowRepetition }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error }, { status: 500 });
+    return NextResponse.json({ error: "Error creating game" }, { status: 500 });
   }
 }
