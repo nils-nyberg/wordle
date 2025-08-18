@@ -26,8 +26,6 @@ export default function Settings({
 
         setMinLetters(payload.minLetters);
         setMaxLetters(payload.maxLetters);
-
-        getWordLength(payload.minLetters);
       } catch (error) {
         console.error(error);
       }
