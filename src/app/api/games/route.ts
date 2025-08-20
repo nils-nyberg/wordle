@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ wordLength, allowRepetition }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
-      { error, message: "Error creating game" },
+      { error, message: "Internal Server Error" },
       { status: 500 }
     );
   }
