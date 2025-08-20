@@ -45,7 +45,7 @@ export default function Game({ wordLength, gameId }: Props) {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [currentLetters]);
+  }, [currentLetters]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>

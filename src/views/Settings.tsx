@@ -29,12 +29,14 @@ export default function Settings({
 
         setMinLetters(payload.minLetters);
         setMaxLetters(payload.maxLetters);
+
+        getWordLength(payload.minLetters);
       } catch (error) {
         console.error(error);
       }
     };
     fetchData();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getRepetition = (state: boolean) => {
     setAllowRepetition(state);
