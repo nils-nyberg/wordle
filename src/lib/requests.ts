@@ -1,7 +1,8 @@
 // The code used in this file, is ONLY used for client side of app
 export async function postSettings(
   wordLength: number,
-  allowRepetition: boolean
+  allowRepetition: boolean,
+  getGameId: (gameId: string) => void
 ) {
   try {
     const response = await fetch("/api/games", {
@@ -18,6 +19,11 @@ export async function postSettings(
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
+
+    const payload = await response.json();
+    const gameId: string = payload.id;
+
+    getGameId(gameId);
   } catch (error) {
     console.error(error);
   }

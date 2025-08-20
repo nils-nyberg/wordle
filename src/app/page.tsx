@@ -7,6 +7,7 @@ import { useState } from "react";
 export default function Home() {
   const [gameStart, setGameStart] = useState<boolean>(false);
   const [wordLength, setWordLength] = useState<number>(1);
+  const [gameId, setGameId] = useState<string>("");
   const [gameEnd, setGameEnd] = useState<boolean>(false);
 
   const startGame = () => {
@@ -15,6 +16,10 @@ export default function Home() {
 
   const getWordLength = (value: number) => {
     setWordLength(value);
+  };
+
+  const getGameId = (gameId: string) => {
+    setGameId(gameId);
   };
 
   const endGame = () => {
@@ -27,6 +32,7 @@ export default function Home() {
         <Settings
           wordLength={wordLength}
           getWordLength={getWordLength}
+          getGameId={getGameId}
           startGame={startGame}
         />
       )}

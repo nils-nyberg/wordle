@@ -8,12 +8,14 @@ type Props = {
   startGame: () => void;
   wordLength: number;
   getWordLength: (value: number) => void;
+  getGameId: (gameId: string) => void;
 };
 
 export default function Settings({
   startGame,
   wordLength,
   getWordLength,
+  getGameId,
 }: Props) {
   const [minLetters, setMinLetters] = useState<number>(0);
   const [maxLetters, setMaxLetters] = useState<number>(0);
@@ -59,7 +61,7 @@ export default function Settings({
             }}
             variant="contained"
             onClick={() => {
-              postSettings(wordLength, allowRepetition);
+              postSettings(wordLength, allowRepetition, getGameId);
               startGame();
             }}
           >
