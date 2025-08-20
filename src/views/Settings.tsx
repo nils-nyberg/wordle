@@ -37,7 +37,7 @@ export default function Settings({
     setAllowRepetition(state);
   };
 
-  const postIt = async () => {
+  const postSettings = async () => {
     try {
       const response = await fetch("/api/games", {
         method: "post",
@@ -79,7 +79,7 @@ export default function Settings({
             }}
             variant="contained"
             onClick={() => {
-              postIt();
+              postSettings();
               startGame();
             }}
           >
