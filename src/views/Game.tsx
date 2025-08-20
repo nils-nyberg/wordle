@@ -1,14 +1,16 @@
 import GuessesList from "@/components/game/GuessesList";
 import InputTiles from "@/components/game/InputTiles";
 import Keyboard from "@/components/game/Keyboard";
+import { postAnswer } from "@/lib/requests";
 import { Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 
 type Props = {
   wordLength: number;
+  gameId: string;
 };
 
-export default function Game({ wordLength }: Props) {
+export default function Game({ wordLength, gameId }: Props) {
   const emptyTiles: string[] = Array(wordLength).fill("");
 
   const [currentLetters, setCurrentLetters] = useState<string[]>(emptyTiles);
@@ -29,6 +31,7 @@ export default function Game({ wordLength }: Props) {
     } else if (userInput === "Enter" && emptyIndex === -1) {
       setGuesses([...guesses, newLetters]);
       setCurrentLetters(emptyTiles);
+      postAnswer(gameId);
     }
   };
 

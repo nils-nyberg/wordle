@@ -36,7 +36,9 @@ export default function Home() {
           startGame={startGame}
         />
       )}
-      {gameStart && !gameEnd && <Game wordLength={wordLength} />}
+      {gameStart && !gameEnd && (
+        <Game wordLength={wordLength} gameId={gameId} />
+      )}
       {gameEnd && <h1>YOU WON</h1>}
     </>
   );
