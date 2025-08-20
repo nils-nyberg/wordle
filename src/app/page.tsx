@@ -6,7 +6,7 @@ import { useState } from "react";
 
 export default function Home() {
   const [gameStart, setGameStart] = useState<boolean>(false);
-  const [wordLength, setWordLength] = useState<number>(0);
+  const [wordLength, setWordLength] = useState<number>(1);
   const [gameEnd, setGameEnd] = useState<boolean>(false);
 
   const startGame = () => {
