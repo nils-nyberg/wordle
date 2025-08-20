@@ -1,5 +1,6 @@
 import LettersLength from "@/components/settings/LettersLength";
 import UniqueLetters from "@/components/settings/UniqueLetters";
+import { postSettings } from "@/lib/requests";
 import { Typography, Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 
@@ -37,27 +38,6 @@ export default function Settings({
     setAllowRepetition(state);
   };
 
-  const postSettings = async () => {
-    try {
-      const response = await fetch("/api/games", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          wordLength,
-          allowRepetition,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <>
       <Typography variant="h1">Welcome</Typography>
@@ -79,7 +59,7 @@ export default function Settings({
             }}
             variant="contained"
             onClick={() => {
-              postSettings();
+              postSettings(wordLength, allowRepetition);
               startGame();
             }}
           >
