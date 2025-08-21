@@ -7,3 +7,8 @@ export type GameData = {
   startTime: Date;
   endTime: Date | undefined;
 };
+
+export type FeedbackData = {
+  letter: string;
+  result: string;
+}[];

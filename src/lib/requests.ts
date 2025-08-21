@@ -1,3 +1,5 @@
+import { FeedbackData } from "./types";
+
 // The code used in this file, is ONLY used for client side of app
 export async function postSettings(
   wordLength: number,
@@ -29,7 +31,11 @@ export async function postSettings(
   }
 }
 
-export async function postAnswer(gameId: string) {
+export async function postAnswer(
+  gameId: string,
+  guess: string,
+  getFeedback: (feedback: FeedbackData) => void
+) {
   try {
     const response = await fetch(`/api/games/${gameId}`, {
       method: "post",
@@ -37,13 +43,19 @@ export async function postAnswer(gameId: string) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        message: "Success",
+        gameId,
+        guess,
       }),
     });
 
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
+
+    const payload = await response.json();
+    const feedback = payload.feedback;
+
+    getFeedback(feedback);
   } catch (error) {
     console.error(error);
   }

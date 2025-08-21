@@ -2,6 +2,7 @@ import GuessesList from "@/components/game/GuessesList";
 import InputTiles from "@/components/game/InputTiles";
 import Keyboard from "@/components/game/Keyboard";
 import { postAnswer } from "@/lib/requests";
+import { FeedbackData } from "@/lib/types";
 import { Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 
@@ -15,11 +16,17 @@ export default function Game({ wordLength, gameId }: Props) {
 
   const [currentLetters, setCurrentLetters] = useState<string[]>(emptyTiles);
   const [guesses, setGuesses] = useState<string[][]>([]);
+  const [feedback, setFeedback] = useState<FeedbackData>([]);
+
+  const getFeedback = (feedback: FeedbackData) => {
+    setFeedback(feedback);
+  };
 
   // Game logic
   const handleUserInput = (userInput: string) => {
     const newLetters: string[] = [...currentLetters];
     const emptyIndex: number = newLetters.indexOf("");
+    const currentGuess: string = [...newLetters].join("");
 
     if (userInput.match(/^[A-Öa-ö]$/)) {
       newLetters[emptyIndex] = userInput.toLowerCase();
@@ -31,7 +38,7 @@ export default function Game({ wordLength, gameId }: Props) {
     } else if (userInput === "Enter" && emptyIndex === -1) {
       setGuesses([...guesses, newLetters]);
       setCurrentLetters(emptyTiles);
-      postAnswer(gameId);
+      postAnswer(gameId, currentGuess, getFeedback);
     }
   };
 
