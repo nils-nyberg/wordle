@@ -1,6 +1,7 @@
 import { GAMES } from "@/lib/utils";
 import feedback from "@/lib/logic/algorithmA";
 import { NextRequest, NextResponse } from "next/server";
+import { FeedbackData } from "@/lib/types";
 
 export async function POST(req: NextRequest) {
   try {
@@ -15,9 +16,17 @@ export async function POST(req: NextRequest) {
       guesses.push(guess);
 
       const answer: string = game.answer;
-      const compare = feedback(guess, answer);
 
-      return NextResponse.json({ feedback: compare }, { status: 200 });
+      let data: FeedbackData | string;
+      if (guess === answer) {
+        data = "You won!";
+      } else {
+        data = feedback(guess, answer);
+      }
+
+      console.log(answer);
+
+      return NextResponse.json({ feedback: data }, { status: 200 });
     } else {
       return NextResponse.json({ error: "Game not found!" }, { status: 404 });
     }

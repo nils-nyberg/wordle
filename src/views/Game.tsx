@@ -16,7 +16,7 @@ export default function Game({ wordLength, gameId }: Props) {
 
   const [currentLetters, setCurrentLetters] = useState<string[]>(emptyTiles);
   const [guesses, setGuesses] = useState<string[][]>([]);
-  const [feedback, setFeedback] = useState<FeedbackData>([]);
+  const [feedback, setFeedback] = useState<FeedbackData | string>([]);
 
   const getFeedback = (feedback: FeedbackData) => {
     setFeedback(feedback);
@@ -24,21 +24,24 @@ export default function Game({ wordLength, gameId }: Props) {
 
   // Game logic
   const handleUserInput = (userInput: string) => {
-    const newLetters: string[] = [...currentLetters];
-    const emptyIndex: number = newLetters.indexOf("");
-    const currentGuess: string = [...newLetters].join("");
+    // If not Game Over
+    if (feedback !== "You won!") {
+      const newLetters: string[] = [...currentLetters];
+      const emptyIndex: number = newLetters.indexOf("");
+      const currentGuess: string = [...newLetters].join("");
 
-    if (userInput.match(/^[A-Öa-ö]$/)) {
-      newLetters[emptyIndex] = userInput.toLowerCase();
-      setCurrentLetters(newLetters);
-    } else if (userInput === "Backspace") {
-      if (emptyIndex === -1) newLetters[newLetters.length - 1] = "";
-      else newLetters[emptyIndex - 1] = "";
-      setCurrentLetters(newLetters);
-    } else if (userInput === "Enter" && emptyIndex === -1) {
-      setGuesses([...guesses, newLetters]);
-      setCurrentLetters(emptyTiles);
-      postAnswer(gameId, currentGuess, getFeedback);
+      if (userInput.match(/^[A-Öa-ö]$/)) {
+        newLetters[emptyIndex] = userInput.toLowerCase();
+        setCurrentLetters(newLetters);
+      } else if (userInput === "Backspace") {
+        if (emptyIndex === -1) newLetters[newLetters.length - 1] = "";
+        else newLetters[emptyIndex - 1] = "";
+        setCurrentLetters(newLetters);
+      } else if (userInput === "Enter" && emptyIndex === -1) {
+        postAnswer(gameId, currentGuess, getFeedback);
+        setGuesses([...guesses, newLetters]);
+        setCurrentLetters(emptyTiles);
+      }
     }
   };
 
@@ -52,7 +55,7 @@ export default function Game({ wordLength, gameId }: Props) {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [currentLetters]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [currentLetters, getFeedback]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
